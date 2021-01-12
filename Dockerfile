@@ -1,7 +1,8 @@
 FROM gitpod/workspace-full
 
 ENV FLUTTER_HOME=/home/gitpod/flutter \
-    FLUTTER_CHANNEL=beta
+    FLUTTER_CHANNEL=beta \
+    FLUTTER_VERSION=1.23.0-18.1.pre
 
 # Install dart
 USER root
@@ -15,8 +16,9 @@ RUN cd /home/gitpod && \
     git clone https://github.com/flutter/flutter.git && \
     cd $FLUTTER_HOME/examples/hello_world && \
     $FLUTTER_HOME/bin/flutter channel ${FLUTTER_CHANNEL} && \
-    $FLUTTER_HOME/bin/flutter upgrade && \
-    $FLUTTER_HOME/bin/flutter config --enable-web
+    $FLUTTER_HOME/bin/flutter config --enable-web && \
+    cd $FLUTTER_HOME/ && \
+    git checkout ${FLUTTER_VERSION}
 
 # Change the PUB_CACHE to /workspace so dependencies are preserved.
 ENV PUB_CACHE=/workspace/.pub_cache
