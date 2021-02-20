@@ -44,28 +44,28 @@ RUN \
 USER gitpod
 
 # Install Android Studio
-RUN cd $HOME
-RUN wget -O android-studio-ide.tar.gz $ANDROID_STUDIO_URL
-RUN tar xf android-studio-ide.tar.gz && rm android-studio-ide.tar.gz
-RUN mkdir -p $HOME/.local/bin
-RUN printf '\nPATH=$HOME/.local/bin:$PATH\n' | \
-        tee -a /home/gitpod/.bashrc
-RUN ln -s $ANDROID_STUDIO_HOME/bin/studio.sh \
+RUN cd ~ && \
+    wget -O android-studio-ide.tar.gz $ANDROID_STUDIO_URL && \
+    tar xf android-studio-ide.tar.gz && rm android-studio-ide.tar.gz && \
+    mkdir -p $HOME/.local/bin && \
+    printf '\nPATH=$HOME/.local/bin:$PATH\n' | \
+        tee -a /home/gitpod/.bashrc && \
+    ln -s $ANDROID_STUDIO_HOME/bin/studio.sh \
       /home/gitpod/.local/bin/android_studio
 
 # Install AndroidSDK
-RUN cd ~
-RUN wget -O android-sdk.zip $ANDROID_SDK_URL
-RUN unzip -q -d android-sdk android-sdk.zip
-RUN rm -rf android-sdk.zip
-RUN mkdir ~/.android
-RUN touch ~/.android/repositories.cfg
-RUN cd ${ANDROID_HOME}/cmdline-tools/bin
-RUN yes | ./sdkmanager --licenses --sdk_root=$ANDROID_HOME
-RUN ./sdkmanager "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "sources;${SOURCES_VERSION}" "extras;android;m2repository" --sdk_root=$ANDROID_HOME
+RUN cd ~ && \
+    wget -O android-sdk.zip $ANDROID_SDK_URL && \
+    unzip -q -d android-sdk android-sdk.zip && \
+    rm -rf android-sdk.zip && \
+    mkdir ~/.android && \
+    touch ~/.android/repositories.cfg && \
+    cd ${ANDROID_HOME}/cmdline-tools/bin && \
+    yes | ./sdkmanager --licenses --sdk_root=$ANDROID_HOME && \
+    ./sdkmanager "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "sources;${SOURCES_VERSION}" "extras;android;m2repository" --sdk_root=$ANDROID_HOME
 
 # Install Flutter sdk
-RUN cd /home/gitpod && \
+RUN cd ~ && \
     git clone https://github.com/flutter/flutter.git && \
     cd $FLUTTER_HOME/examples/hello_world && \
     $FLUTTER_HOME/bin/flutter channel ${FLUTTER_CHANNEL} && \
