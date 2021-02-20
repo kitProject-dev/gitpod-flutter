@@ -57,15 +57,12 @@ RUN ln -s $ANDROID_STUDIO_HOME/bin/studio.sh \
 RUN cd ~
 RUN wget -O android-sdk.zip $ANDROID_SDK_URL
 RUN unzip -q -d android-sdk android-sdk.zip
-RUN mv android-sdk/cmdline-tools android-sdk/tools
 RUN rm -rf android-sdk.zip
 RUN mkdir ~/.android
 RUN touch ~/.android/repositories.cfg
-# RUN cd ${ANDROID_HOME}/cmdline-tools/bin
-# RUN yes | ./sdkmanager --licenses --sdk_root=$ANDROID_HOME
-# RUN ./sdkmanager "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "sources;${SOURCES_VERSION}" "extras;android;m2repository" --sdk_root=$ANDROID_HOME
-RUN yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME
-RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "sources;${SOURCES_VERSION}" "extras;android;m2repository" --sdk_root=$ANDROID_HOME
+RUN cd ${ANDROID_HOME}/cmdline-tools/bin
+RUN yes | ./sdkmanager --licenses --sdk_root=$ANDROID_HOME
+RUN ./sdkmanager "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "sources;${SOURCES_VERSION}" "extras;android;m2repository" --sdk_root=$ANDROID_HOME
 
 # Install Flutter sdk
 RUN cd /home/gitpod && \
