@@ -11,9 +11,7 @@ ENV ANDROID_HOME=/home/gitpod/android-sdk
 ENV ANDROID_STUDIO_HOME=/home/gitpod/android-studio
 ENV FLUTTER_HOME=/home/gitpod/flutter
 ENV JAVA_HOME=$ANDROID_STUDIO_HOME/jre
-ENV PUB_CACHE=/workspace/.pub_cache
-ENV PATH=${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PUB_CACHE}/bin:${FLUTTER_HOME}/.pub-cache/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:$PATH
-    
+
 USER root
 
 # Install dependencies
@@ -72,3 +70,10 @@ RUN cd ~ && \
     $FLUTTER_HOME/bin/flutter config --enable-web && \
     cd $FLUTTER_HOME/ && \
     git checkout ${FLUTTER_VERSION}
+    
+# Change the PUB_CACHE to /workspace so dependencies are preserved.
+ENV PUB_CACHE=/workspace/.pub_cache
+
+# add executables to PATH
+ENV PATH=${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PUB_CACHE}/bin:${FLUTTER_HOME}/.pub-cache/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:$PATH
+
