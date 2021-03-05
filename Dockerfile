@@ -1,8 +1,8 @@
 FROM gitpod/workspace-full
 
 ENV FLUTTER_HOME=/home/gitpod/flutter \
-    FLUTTER_CHANNEL=beta \
-    FLUTTER_VERSION=1.26.0-17.5.pre
+    FLUTTER_CHANNEL=stable \
+    FLUTTER_VERSION=2.0.1
 
 # Install dart
 USER root
@@ -16,7 +16,6 @@ RUN cd /home/gitpod && \
     git clone https://github.com/flutter/flutter.git && \
     cd $FLUTTER_HOME/examples/hello_world && \
     $FLUTTER_HOME/bin/flutter channel ${FLUTTER_CHANNEL} && \
-    $FLUTTER_HOME/bin/flutter config --enable-web && \
     cd $FLUTTER_HOME/ && \
     git checkout ${FLUTTER_VERSION}
 
