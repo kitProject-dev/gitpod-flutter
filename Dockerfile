@@ -5,8 +5,8 @@ ARG ANDROID_STUDIO_URL=https://redirector.gvt1.com/edgedl/android/studio/ide-zip
 ARG BUILD_TOOLS_VERSION=30.0.3
 ARG PLATFORMS_VERSION=android-30
 ARG SOURCES_VERSION=android-30
-ARG FLUTTER_CHANNEL=beta
-ARG FLUTTER_VERSION=1.26.0-17.5.pre
+ARG FLUTTER_CHANNEL=stable
+ARG FLUTTER_VERSION=2.0.1
 ENV ANDROID_HOME=/home/gitpod/android-sdk
 ENV ANDROID_STUDIO_HOME=/home/gitpod/android-studio
 ENV FLUTTER_HOME=/home/gitpod/flutter
@@ -67,7 +67,6 @@ RUN cd ~ && \
     git clone https://github.com/flutter/flutter.git && \
     cd $FLUTTER_HOME/examples/hello_world && \
     $FLUTTER_HOME/bin/flutter channel ${FLUTTER_CHANNEL} && \
-    $FLUTTER_HOME/bin/flutter config --enable-web && \
     cd $FLUTTER_HOME/ && \
     git checkout ${FLUTTER_VERSION}
     
