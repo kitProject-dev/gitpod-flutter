@@ -1,14 +1,14 @@
 FROM gitpod/workspace-full-vnc
 
 ARG ANDROID_SDK_URL=https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip
-ARG ANDROID_STUDIO_URL=https://redirector.gvt1.com/edgedl/android/studio/ide-zips/4.1.2.0/android-studio-ide-201.7042882-linux.tar.gz
+ARG IDEA_URL=htthttps://download.jetbrains.com/idea/ideaIC-2020.3.3.tar.gz 
 ARG BUILD_TOOLS_VERSION=30.0.3
 ARG PLATFORMS_VERSION=android-30
 ARG SOURCES_VERSION=android-30
 ARG FLUTTER_CHANNEL=stable
 ARG FLUTTER_VERSION=2.0.1
 ENV ANDROID_HOME=/home/gitpod/android-sdk
-ENV ANDROID_STUDIO_HOME=/home/gitpod/android-studio
+ENV IDEA_HOME=/home/gitpod/idea
 ENV FLUTTER_HOME=/home/gitpod/flutter
 ENV JAVA_HOME=$ANDROID_STUDIO_HOME/jre
 
@@ -41,15 +41,15 @@ RUN \
 
 USER gitpod
 
-# Install Android Studio
+# Install Idea
 RUN cd ~ && \
-    wget -O android-studio-ide.tar.gz $ANDROID_STUDIO_URL && \
-    tar xf android-studio-ide.tar.gz && rm android-studio-ide.tar.gz && \
+    wget -O ideaIC.tar.gz $IDEA_URL && \
+    tar xf ideaIC.tar.gz && rm ideaIC.tar.gz && \
     mkdir -p $HOME/.local/bin && \
     printf '\nPATH=$HOME/.local/bin:$PATH\n' | \
         tee -a /home/gitpod/.bashrc && \
-    ln -s $ANDROID_STUDIO_HOME/bin/studio.sh \
-      /home/gitpod/.local/bin/android_studio
+    ln -s $IDEA_HOME/bin/studio.sh \
+      /home/gitpod/.local/bin/idea
 
 # Install AndroidSDK
 RUN cd ~ && \
